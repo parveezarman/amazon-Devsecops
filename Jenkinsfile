@@ -75,7 +75,7 @@ pipeline {
         stage("Build Docker Image") {
             steps {
                 script {
-                    env.IMAGE_TAG = "harishnshetty/amazon:${BUILD_NUMBER}"
+                    env.IMAGE_TAG = "arru0057/amazon:${BUILD_NUMBER}"
 
                     // Optional cleanup
                     sh "docker rmi -f amazon ${env.IMAGE_TAG} || true"
@@ -89,13 +89,13 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'docker-cred', variable: 'dockerpwd')]) {
-                        sh "docker login -u harishnshetty -p ${dockerpwd}"
+                        sh "docker login -u arru0057 -p ${dockerpwd}"
                         sh "docker tag amazon ${env.IMAGE_TAG}"
                         sh "docker push ${env.IMAGE_TAG}"
 
                         // Also push latest
-                        sh "docker tag amazon harishnshetty/amazon:latest"
-                        sh "docker push harishnshetty/amazon:latest"
+                        sh "docker tag amazon arru0057/amazon:latest"
+                        sh "docker push arru0057/amazon:latest"
                     }
                 }
             }
@@ -149,8 +149,8 @@ pipeline {
                     <p>Started by: ${buildUser}</p>
                     <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                 """,
-                to: 'harishn662@gmail.com',
-                from: 'harishn662@gmail.com',
+                to: 'parveezarman555@gmail.com',
+                from: 'parveezarman555@gmail.com',
                 mimeType: 'text/html',
                 attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
                     )
